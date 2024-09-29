@@ -4,11 +4,12 @@ import {AppService} from './app.service';
 import {BookModule} from './book/book.module';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {ConfigService, ConfigModule} from "@nestjs/config"
+import * as process from "node:process";
 
 @Module({
     imports: [
         BookModule,
-        ConfigModule.forRoot({isGlobal: true}),
+        ConfigModule.forRoot(),
         TypeOrmModule.forRootAsync({
             imports: [
                 ConfigModule
@@ -22,11 +23,13 @@ import {ConfigService, ConfigModule} from "@nestjs/config"
                 database: configService.get('DB_NAME'),
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true,
-            })
+            }),
+            inject: [ConfigService],
         }),
     ],
     controllers: [AppController],
     providers: [AppService],
 })
+
 export class AppModule {
 }

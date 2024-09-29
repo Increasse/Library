@@ -2,7 +2,7 @@ import {Controller, Get, Post, Body, Patch, Param, Delete, Put, Query} from '@ne
 import {Book} from "./entities/book.entity";
 import {BookService} from "./book.service";
 
-@Controller('books')
+@Controller('book')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
