@@ -33,8 +33,9 @@ export class BookService {
 
   async update(id: number, book: Partial<Book>): Promise<Book> {
     await this.booksRepository.update(id, book);
-    // @ts-ignore
-    return this.booksRepository.findOne(id);
+    return this.booksRepository.findOne({
+      where: { id: id },
+    });
   }
 
   async remove(id: number): Promise<void> {

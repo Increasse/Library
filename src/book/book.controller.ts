@@ -1,6 +1,7 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, Put, Query} from '@nestjs/common';
 import {Book} from "./entities/book.entity";
 import {BookService} from "./book.service";
+import {UpdateBookDto} from "./dto/update-book.dto";
 
 @Controller('book')
 export class BookController {
@@ -26,9 +27,9 @@ export class BookController {
     return this.bookService.findByTitle(title);
   }
 
-  @Put(':id')
-  update(@Param('id') id: number, @Body() book: Partial<Book>) {
-    return this.bookService.update(id, book);
+  @Patch(':id')
+  update(@Param('id') id: number, @Body() updateBookDto: UpdateBookDto) {
+    return this.bookService.update(+id, updateBookDto);
   }
 
   @Delete(':id')
